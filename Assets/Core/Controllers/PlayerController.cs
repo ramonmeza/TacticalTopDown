@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
 	/// Moves the player's character up/down using it's 
 	/// CharacterMovementComponent.
 	/// </summary>
-	void MoveUp(float value)
+	void MoveUp( float value )
 	{	
 		// Check to see if there is a CharacterMovementComponent to use
 		if( m_CharacterMovementComponent != null )
@@ -46,10 +46,10 @@ public class PlayerController : MonoBehaviour
 	/// Moves the player's character right/left using it's 
 	/// CharacterMovementComponent.
 	/// </summary>
-	void MoveRight(float value)
+	void MoveRight( float value )
 	{
 		// Check to see if there is a CharacterMovementComponent to use
-		if(m_CharacterMovementComponent != null)
+		if( m_CharacterMovementComponent != null )
 			m_CharacterMovementComponent.MoveRight( value );
 	}
 }
