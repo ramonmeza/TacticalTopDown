@@ -8,4 +8,18 @@ using UnityEngine;
 
 public class AIController : MonoBehaviour
 {
+	private CharacterMovementComponent m_CharacterMovementComponent;
+	public GameObject Target;
+
+	void Start()
+	{
+		// Get the CharacterMovementComponent from the character
+		m_CharacterMovementComponent = 
+			gameObject.GetComponent<CharacterMovementComponent>();
+
+	}
+
+	void Update()
+	{
+	}
 }
