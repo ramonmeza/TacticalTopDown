@@ -94,6 +94,9 @@ public class AStar : MonoBehaviour
 				ClosedList.Add( bestNode );
 			else
 				return null;
+
+			// Change the current node to the node we moved to
+			currentNode = bestNode;
 		}
 
 		// Return the list for the best path
