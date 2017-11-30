@@ -22,13 +22,7 @@ public class Pathfinder : MonoBehaviour
 	public List<PathNode> 
 		FindShortestPath( PathNode startNode, PathNode targetNode )
 	{
-		/* 
-		 * DON'T FORGET CLOSED LIST, PLACE ALREADY CHECKED NODES IN LIST
-		 * DON'T CHECK THEM TWICE
-		*/
-		List<PathNode> ClosedList = new List<PathNode>();
-
-		// Keep track of the best path
+		// Keep track of the best path so far
 		List<PathNode> BestPath = new List<PathNode>();
 		BestPath.Add( startNode );
 
@@ -38,18 +32,14 @@ public class Pathfinder : MonoBehaviour
 		// Find the path
 		while( currentNode != targetNode )
 		{
-			// Add current node to the closed list
-			if( ClosedList.Contains( currentNode ) != true )
-				ClosedList.Add( currentNode );
-
 			// Keep track of the best node
 			PathNode bestNode = null;
 			
 			// Check each connected node
 			foreach( PathNode connected in currentNode.ConnectedNodes )
 			{
-				// If you haven't already checked this node
-				if( ClosedList.Contains( connected ) != true )
+				// If the connected node isn't already on the best path
+				if( BestPath.Contains( connected ) != true )
 				{
 					// Calculate the node's cost
 					connected.CalculateCosts( startNode, targetNode );
@@ -63,9 +53,6 @@ public class Pathfinder : MonoBehaviour
 					{
 						bestNode = connected;
 					}
-
-					// Add node to closed list
-					ClosedList.Add( connected );
 				}
 			}
 
