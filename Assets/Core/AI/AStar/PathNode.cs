@@ -32,12 +32,15 @@ public class PathNode : MonoBehaviour
 	/// Calculates the costs.
 	/// </summary>
 	/// <param name="targetNode">Target node.</param>
-	public void CalculateCosts(PathNode startNode, PathNode targetNode)
+	public void CalculateCosts( PathNode startNode, PathNode targetNode )
 	{
-		Vector3 pos = transform.position;
+		// Distance from startNode to this node
+		G = ( transform.position - startNode.transform.position ).magnitude;
 
-		G = Vector3.Distance( startNode.transform.position, pos );
-		H = Vector3.Distance( pos, targetNode.transform.position );
+		// Straight line distance from this node to target node
+		H = ( targetNode.transform.position - transform.position ).magnitude;
+
+		// Cost of taking this path
 		F = G + H;
 	}
 
