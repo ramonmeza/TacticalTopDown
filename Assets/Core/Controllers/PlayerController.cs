@@ -25,17 +25,20 @@ public class PlayerController : MonoBehaviour
 	/// <summary>
 	/// Handles the input events from the player.
 	/// </summary>
-	void HandleInput()
+	private void HandleInput()
 	{
 		MoveUp( Input.GetAxisRaw( "MoveUp" ) );
 		MoveRight( Input.GetAxisRaw( "MoveRight" ) );
+
+		// Rotate to mouse
+		AimAt( Camera.main.ScreenToWorldPoint( Input.mousePosition ) );
 	}
 
 	/// <summary>
 	/// Moves the player's character up/down using it's 
 	/// CharacterMovementComponent.
 	/// </summary>
-	void MoveUp( float value )
+	private void MoveUp( float value )
 	{	
 		// Check to see if there is a CharacterMovementComponent to use
 		if( m_CharacterMovementComponent != null )
@@ -46,10 +49,19 @@ public class PlayerController : MonoBehaviour
 	/// Moves the player's character right/left using it's 
 	/// CharacterMovementComponent.
 	/// </summary>
-	void MoveRight( float value )
+	private void MoveRight( float value )
 	{
 		// Check to see if there is a CharacterMovementComponent to use
 		if( m_CharacterMovementComponent != null )
 			m_CharacterMovementComponent.MoveRight( value );
+	}
+
+	/// <summary>
+	/// Aims the player at the specified target using it's 
+	/// CharacterMovementComponent
+	/// </summary>
+	private void AimAt( Vector3 target )
+	{
+		m_CharacterMovementComponent.AimAt( target );
 	}
 }

@@ -32,4 +32,21 @@ public class CharacterMovementComponent : MonoBehaviour
 	{
 		transform.position += Vector3.right * value * Speed * Time.deltaTime;
 	}
+
+	/// <summary>
+	/// Aim at the specified target.
+	/// </summary>
+	/// <param name="target">Target location to aim at (rotate toward).</param>
+	public void AimAt( Vector3 target )
+	{
+		// Get the distance to the mouse
+		Vector3 diff = target - transform.position;
+		diff.Normalize();
+
+		// Get the rotation to turn to point to the mouse
+		float rot = Mathf.Atan2( diff.y, diff.x ) * Mathf.Rad2Deg;
+
+		// Set the rotation
+		transform.rotation = Quaternion.Euler( 0.0f, 0.0f, rot );
+	}
 }

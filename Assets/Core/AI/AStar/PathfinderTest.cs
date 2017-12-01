@@ -14,11 +14,11 @@ public class PathfinderTest : MonoBehaviour
 	public List<PathNode> FoundPath = new List<PathNode>();
 	public Pathfinder PathfinderComponent;
 
-	void Start ()
+	void Start()
 	{
-		if(StartNode != null && 
-			TargetNode != null && 
-			PathfinderComponent != null)
+		if( StartNode != null &&
+		    TargetNode != null &&
+		    PathfinderComponent != null )
 		{
 			FoundPath = PathfinderComponent
 				.FindShortestPath( StartNode, TargetNode );
