@@ -1,5 +1,5 @@
 ﻿/// <summary>
-/// A* pathfinding algorithm implementation.
+/// Pathfinder.
 /// </summary>
 
 using System.Collections;
@@ -7,174 +7,146 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class Pathfinder : MonoBehaviour
+public class Pathfinder : MonoBehaviour 
 {
 	/// <summary>
-	/// List of all nodes that define a single path
+	/// List of all of the nodes for the pathfinding.
 	/// </summary>
-	public List<PathNode> Grid;
-
-	/// <summary>
-	/// Dictionary of all of the connection costs
-	/// </summary>
-	private Dictionary<KeyValuePair<PathNode, PathNode>, float> m_Connections =
-		new Dictionary<KeyValuePair<PathNode, PathNode>, float>();
-
-	void Start()
-	{
-		// Precalculate all costs between connections
-		foreach( PathNode node in Grid )
-		{
-			foreach( PathNode connected in node.ConnectedNodes )
-			{
-				AddConnection( node, connected );
-			}
-		}
-	}
+	public List<PathNode> Grid = new List<PathNode>();
 
 	/// <summary>
 	/// Finds the best path.
 	/// </summary>
 	/// <param name="startNode">Start node.</param>
 	/// <param name="targetNode">Target node.</param>
-	public List<PathNode> FindBestPath(
-		PathNode startNode, 
-		PathNode targetNode )
+	public List<PathNode> FindBestPath(PathNode startNode, PathNode targetNode)
 	{
-		
-		List<PathNode> BestPath = new List<PathNode>();
-		BestPath.Add( startNode );
+		// List of nodes that need to be checked.
+		List<PathNode> OpenList = new List<PathNode>();
 
+		// List of nodes that have been checked.
+		List<PathNode> ClosedList = new List<PathNode>();
+
+		// For each node in the grid
+		foreach( PathNode node in Grid )
+		{
+			// Get H cost of each node
+			node.H = StraightLineDistance( node, targetNode );
+
+			// Initialize other node variables
+			node.G = 0.0f;
+			node.Parent = null;
+		}
+
+		// Current node in the path
 		PathNode currentNode = startNode;
 
-		KeyValuePair<PathNode, float> BestNode = 
-			new KeyValuePair<PathNode, float>( null, Mathf.Infinity );
+		// Add current node to the closed list since we're evaluating it
+		ClosedList.Add( currentNode );
 
 		while( currentNode != targetNode )
 		{
-			foreach( PathNode connected in currentNode.ConnectedNodes )
+			foreach( PathNode node in currentNode.Connections )
 			{
-				// Skip iteration if the node is already on the best path
-				if( BestPath.Contains( connected ) )
-					continue;
-
 				// If the connected node is the target node
-				if( connected == targetNode )
+				if( node == targetNode )
 				{
-					BestPath.Add( connected );
-					return BestPath;
+					node.Parent = currentNode;
+					return RevealPath( node );
 				}
 
-				/* 
-				 * Calculate the scores
-				 * F = G + H
-				 * G = Path cost SO FAR
-				 * H = Estimated cost from node to goal
-				*/
-				float G = GetConnectionCost( currentNode, connected );
-				float H = StraightLineDistance( connected, targetNode );
-				float F = G + H;
+				// If the node isn't already in our closed list
+				if( ClosedList.Contains( node ) == false )
+				{
+					// If the node is already on the open list
+					if( OpenList.Contains( node ) == true )
+					{
+						// Check if cost to move to this is cheaper than before
+						float specialCase = currentNode.G +
+							StraightLineDistance( node, currentNode );
 
-				// If this node is better than the best node
-				if( BestNode.Key == null || F < BestNode.Value )
-					BestNode = 
-						new KeyValuePair<PathNode, float>( connected, F );
+						if( specialCase < node.G )
+						{
+							node.Parent = currentNode;
+						}
+					}
+					else
+					{
+						// Get G cost of each node
+						node.G = currentNode.G + StraightLineDistance( node, currentNode );
+
+						// Get F cost of each node
+						node.F = node.H + node.G;
+				
+						// Parent the node to the current node
+						node.Parent = currentNode;
+
+						// Add nodes to open list to be evaluated
+						OpenList.Add( node );
+					}
+				}
 			}
 
-			// Add best node to the path
-			Debug.Log(BestNode.Key);
-			BestPath.Add( BestNode.Key );
+			PathNode BestNode = LowestFCostNode( OpenList );
+			ClosedList.Add( BestNode );
+			OpenList.Remove( BestNode );
 
-			// Increment currentNode
-			currentNode = BestPath.Last();
+			currentNode = ClosedList.Last();
 		}
 
 		return null;
 	}
 
 	/// <summary>
-	/// Finds the straight line distance between two PathNodes
+	/// Finds the straight line distance from the a node to the b node.
 	/// </summary>
-	/// <param name="startNode">Start node.</param>
-	/// <param name="targetNode">Target node.</param>
-	private float StraightLineDistance( 
-		PathNode startNode, 
-		PathNode targetNode )
+	public float StraightLineDistance( PathNode a, PathNode b )
 	{
-		return Vector3.Distance( 
-			startNode.transform.position, 
-			targetNode.transform.position );
+		return Vector2.Distance( a.transform.position, b.transform.position );
 	}
 
 	/// <summary>
-	/// Check if the connection is already in the hashtable
+	/// Finds the path node with the lowest F cost value in a given list.
 	/// </summary>
-	private bool CheckConnectionKey( PathNode a, PathNode b )
+	/// <returns>The path node with the lowest F cost value.</returns>
+	/// <param name="nodes">List of nodes to search.</param>
+	private PathNode LowestFCostNode(List<PathNode> nodes)
 	{
-		// Check the two differenct connections keys
-		KeyValuePair<PathNode, PathNode> ab = 
-			new KeyValuePair<PathNode, PathNode>( a, b );
-		KeyValuePair<PathNode, PathNode> ba = 
-			new KeyValuePair<PathNode, PathNode>( b, a );
+		PathNode lowest = null;
 
-		// If the connection key exists already
-		if( m_Connections.ContainsKey( ab ) || m_Connections.ContainsKey( ba ) )
-			return true;
-
-		// No key for this connection
-		return false;
-	}
-
-	/// <summary>
-	/// Gets the connection key between a and b.
-	/// </summary>
-	private KeyValuePair<PathNode, PathNode> GetConnectionKey( PathNode a, 
-	                                                           PathNode b )
-	{
-		// Check the two differenct connections keys
-		KeyValuePair<PathNode, PathNode> ab = 
-			new KeyValuePair<PathNode, PathNode>( a, b );
-		KeyValuePair<PathNode, PathNode> ba = 
-			new KeyValuePair<PathNode, PathNode>( b, a );
-
-		if( m_Connections.ContainsKey( ab ) )
-			return ab;
-		else if( m_Connections.ContainsKey( ba ) )
-			return ba;
-		
-		// No key for this connection
-		return new KeyValuePair<PathNode, PathNode>( null, null );
-	}
-
-	/// <summary>
-	/// Add a connection if it exists
-	/// </summary>
-	private void AddConnection( PathNode a, PathNode b )
-	{
-		// If there is no connection between a and b
-		if( !a.ConnectedNodes.Contains( b ) && !b.ConnectedNodes.Contains( a ) )
-			return;
-
-		// Check if the connection isn't already accounted for
-		if( !CheckConnectionKey( a, b ) )
+		foreach(PathNode node in nodes)
 		{
-			float value = StraightLineDistance( a, b );
-
-			// Add connection
-			KeyValuePair<PathNode, PathNode> key =
-				new KeyValuePair<PathNode, PathNode>( a, b );
-			m_Connections.Add( key, value );
+			// Update lowest
+			if(lowest == null || node.F < lowest.F)
+				lowest = node;
 		}
+
+		return lowest;
 	}
 
 	/// <summary>
-	/// Gets the connection cost between node a and b.
+	/// Reveals the path taken to get to a given node.
 	/// </summary>
-	private float GetConnectionCost( PathNode a, PathNode b )
+	/// <returns>The path to the given node. The list's first element
+	/// is the last node on the path and the last element is the first 
+	/// node on the path.</returns>
+	/// <param name="node">Last node on the path.</param>
+	private List<PathNode> RevealPath( PathNode node )
 	{
-		if( CheckConnectionKey( a, b ) )
-			return m_Connections[ GetConnectionKey( a, b ) ];
+		// The list to return the path in
+		List<PathNode> path = new List<PathNode>();
 
-		return Mathf.Infinity;
+		// Find all of the parents
+		while( node != null )
+		{
+			// Add the current node to the path
+			path.Add( node );
+
+			// Change current node to it's parent
+			node = node.Parent;
+		}
+
+		// Return the path
+		return path;
 	}
 }

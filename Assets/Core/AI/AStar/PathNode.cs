@@ -1,5 +1,5 @@
 ﻿/// <summary>
-/// A single path node for the A* pathfinding.
+/// Path node.
 /// </summary>
 
 using System.Collections;
@@ -9,20 +9,50 @@ using UnityEngine;
 public class PathNode : MonoBehaviour
 {
 	/// <summary>
-	/// List of the connected nodes.
-	/// This specifies the nodes this node can traverse to.
+	/// Heuristic; Distance from a node to the target node.
 	/// </summary>
-	public List<PathNode> ConnectedNodes = new List<PathNode>();
+	public float H { get; set; }
 
-	// Draw debug/editor objects
+	/// <summary>
+	/// Movement cost
+	/// </summary>
+	public float G { get; set; }
+
+	/// <summary>
+	/// F = G + H
+	/// </summary>
+	public float F { get; set; }
+
+	/// <summary>
+	/// A node to reach this node.
+	/// </summary>
+	public PathNode Parent { get; set; }
+
+	/// <summary>
+	/// List of connections from this node to other nodes.
+	/// </summary>
+	public List<PathNode> Connections = new List<PathNode>();
+
+	void Start()
+	{
+		// Initialize cost values
+		H = 0.0f;
+		G = 0.0f;
+		F = 0.0f;
+
+		// Initialize parent
+		Parent = null;
+	}
+
 	void OnDrawGizmos()
 	{
 		Gizmos.color = Color.red;
+
 		Gizmos.DrawSphere( transform.position, 0.5f );
 
-		foreach( PathNode node in ConnectedNodes )
+		foreach( PathNode node in Connections )
 		{
-			if(node != null)
+			if( node != null )
 				Gizmos.DrawLine( transform.position, node.transform.position );
 		}
 	}
