@@ -22,15 +22,15 @@ public class PathfinderTest : MonoBehaviour
 		// Only run pathfinding when the target is near a 
 		// different node than before
 		PathNode closestToTarget = 
-				PathfinderHelper.FindClosestNode( target, PathFinderComponent );
-		if( targetNode != closestToTarget)
+			PathfinderHelper.FindClosestNode( target, PathFinderComponent );
+		if( targetNode != closestToTarget )
 		{
 			targetNode = closestToTarget;
 			Path = PathFinderComponent.FindBestPath( startNode, targetNode );
 		}
 	}
 
-	void OnDrawGizmos()
+	void OnDrawGizmos ()
 	{
 		Gizmos.color = Color.green;
 
@@ -43,18 +43,18 @@ public class PathfinderTest : MonoBehaviour
 				if( node != Path.Last() )
 				{
 					Gizmos.DrawLine( 
-						node.transform.position + 
-							( node.transform.up * 0.05f ), 
+						node.transform.position +
+						( node.transform.up * 0.05f ), 
 						Path[ Path.IndexOf( node ) + 1 ]
-							.transform.position + 
+							.transform.position +
 						( Path[ Path.IndexOf( node ) + 1 ]
 							.transform.up * 0.05f ) );
 
 					Gizmos.DrawLine( 
-						node.transform.position + 
+						node.transform.position +
 						( node.transform.right * 0.05f ), 
 						Path[ Path.IndexOf( node ) + 1 ]
-							.transform.position + 
+							.transform.position +
 						( Path[ Path.IndexOf( node ) + 1 ]
 							.transform.right * 0.05f ) );
 				}

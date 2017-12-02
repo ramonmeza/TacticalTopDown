@@ -12,14 +12,27 @@ public class Pathfinder : MonoBehaviour
 	/// <summary>
 	/// List of all of the nodes for the pathfinding.
 	/// </summary>
-	public List<PathNode> Grid = new List<PathNode>();
+	private List<PathNode> m_Grid = new List<PathNode>();
+
+	void Start ()
+	{
+		// Get all nodes parented to this object for the grid
+		foreach( PathNode child in GetComponentsInChildren<PathNode>() )
+			m_Grid.Add( child );
+	}
+
+	public List<PathNode> GetGrid ()
+	{
+		return m_Grid;
+	}
 
 	/// <summary>
 	/// Finds the best path.
 	/// </summary>
 	/// <param name="startNode">Start node.</param>
 	/// <param name="targetNode">Target node.</param>
-	public List<PathNode> FindBestPath ( PathNode startNode, PathNode targetNode )
+	public List<PathNode> FindBestPath ( PathNode startNode, 
+	                                     PathNode targetNode )
 	{
 		// If the start node is the target node
 		if( startNode == targetNode )
@@ -32,7 +45,7 @@ public class Pathfinder : MonoBehaviour
 		List<PathNode> ClosedList = new List<PathNode>();
 
 		// For each node in the grid
-		foreach( PathNode node in Grid )
+		foreach( PathNode node in m_Grid )
 		{
 			// Get H cost of each node
 			node.H = PathfinderHelper.StraightLineDistance( node, targetNode );

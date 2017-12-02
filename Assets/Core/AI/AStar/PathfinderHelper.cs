@@ -37,8 +37,10 @@ public class PathfinderHelper : MonoBehaviour
 	/// </summary>
 	public static PathNode RandomNodeInPath ( Pathfinder path )
 	{
-		if( path.Grid.Count > 0 )
-			return path.Grid[ Random.Range( 0, path.Grid.Count - 1 ) ];
+		List<PathNode> grid = path.GetGrid();
+
+		if( grid.Count > 0 )
+			return grid[ Random.Range( 0, grid.Count - 1 ) ];
 		else
 			return null;
 	}
@@ -48,7 +50,8 @@ public class PathfinderHelper : MonoBehaviour
 	/// </summary>
 	/// <returns>The closest node to target.</returns>
 	/// <param name="target">Target</param>
-	public static PathNode FindClosestNode ( GameObject target, Pathfinder path )
+	public static PathNode FindClosestNode ( GameObject target, 
+	                                         Pathfinder path )
 	{
 		return FindClosestNode( target.transform.position, path );
 	}
@@ -62,7 +65,7 @@ public class PathfinderHelper : MonoBehaviour
 	{
 		PathNode closestNode = null;
 
-		foreach( PathNode node in path.Grid )
+		foreach( PathNode node in path.GetGrid() )
 		{
 			if( closestNode == null ||
 			    StraightLineDistance( target, node.transform.position ) <
