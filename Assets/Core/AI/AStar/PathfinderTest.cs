@@ -19,8 +19,15 @@ public class PathfinderTest : MonoBehaviour
 
 	void Update ()
 	{
-		targetNode = PathfinderHelper.FindClosestNode( target, PathFinderComponent );
-		Path = PathFinderComponent.FindBestPath( startNode, targetNode );
+		// Only run pathfinding when the target is near a 
+		// different node than before
+		PathNode closestToTarget = 
+				PathfinderHelper.FindClosestNode( target, PathFinderComponent );
+		if( targetNode != closestToTarget)
+		{
+			targetNode = closestToTarget;
+			Path = PathFinderComponent.FindBestPath( startNode, targetNode );
+		}
 	}
 
 	void OnDrawGizmos()
