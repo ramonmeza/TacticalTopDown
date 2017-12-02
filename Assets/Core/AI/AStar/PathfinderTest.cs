@@ -16,7 +16,7 @@ public class PathfinderTest : MonoBehaviour
 
 	public List<PathNode> Path = new List<PathNode>();
 
-	void Start ()
+	void Update ()
 	{
 		Path = PathFinderComponent.FindBestPath( startNode, targetNode );
 	}
