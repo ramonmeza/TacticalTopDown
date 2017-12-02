@@ -1,5 +1,5 @@
 ﻿/// <summary>
-/// Pathfinder.
+/// Implementation of A* pathfinding algorithm using waypoints (PathNodes).
 /// </summary>
 
 using System.Collections;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class Pathfinder : MonoBehaviour 
+public class Pathfinder : MonoBehaviour
 {
 	/// <summary>
 	/// List of all of the nodes for the pathfinding.
@@ -19,8 +19,12 @@ public class Pathfinder : MonoBehaviour
 	/// </summary>
 	/// <param name="startNode">Start node.</param>
 	/// <param name="targetNode">Target node.</param>
-	public List<PathNode> FindBestPath(PathNode startNode, PathNode targetNode)
+	public List<PathNode> FindBestPath ( PathNode startNode, PathNode targetNode )
 	{
+		// If the start node is the target node
+		if( startNode == targetNode )
+			return RevealPath( startNode );
+
 		// List of nodes that need to be checked.
 		List<PathNode> OpenList = new List<PathNode>();
 
@@ -31,7 +35,7 @@ public class Pathfinder : MonoBehaviour
 		foreach( PathNode node in Grid )
 		{
 			// Get H cost of each node
-			node.H = StraightLineDistance( node, targetNode );
+			node.H = PathfinderHelper.StraightLineDistance( node, targetNode );
 
 			// Initialize other node variables
 			node.G = 0.0f;
@@ -63,7 +67,9 @@ public class Pathfinder : MonoBehaviour
 					{
 						// Check if cost to move to this is cheaper than before
 						float specialCase = currentNode.G +
-							StraightLineDistance( node, currentNode );
+						                    PathfinderHelper
+												.StraightLineDistance( node, 
+						                             currentNode );
 
 						if( specialCase < node.G )
 						{
@@ -73,7 +79,9 @@ public class Pathfinder : MonoBehaviour
 					else
 					{
 						// Get G cost of each node
-						node.G = currentNode.G + StraightLineDistance( node, currentNode );
+						node.G = currentNode.G +
+						PathfinderHelper.StraightLineDistance( node, 
+						                                       currentNode );
 
 						// Get F cost of each node
 						node.F = node.H + node.G;
@@ -98,26 +106,18 @@ public class Pathfinder : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Finds the straight line distance from the a node to the b node.
-	/// </summary>
-	public float StraightLineDistance( PathNode a, PathNode b )
-	{
-		return Vector2.Distance( a.transform.position, b.transform.position );
-	}
-
-	/// <summary>
 	/// Finds the path node with the lowest F cost value in a given list.
 	/// </summary>
 	/// <returns>The path node with the lowest F cost value.</returns>
 	/// <param name="nodes">List of nodes to search.</param>
-	private PathNode LowestFCostNode(List<PathNode> nodes)
+	private PathNode LowestFCostNode ( List<PathNode> nodes )
 	{
 		PathNode lowest = null;
 
-		foreach(PathNode node in nodes)
+		foreach( PathNode node in nodes )
 		{
 			// Update lowest
-			if(lowest == null || node.F < lowest.F)
+			if( lowest == null || node.F < lowest.F )
 				lowest = node;
 		}
 
@@ -131,7 +131,7 @@ public class Pathfinder : MonoBehaviour
 	/// is the last node on the path and the last element is the first 
 	/// node on the path.</returns>
 	/// <param name="node">Last node on the path.</param>
-	private List<PathNode> RevealPath( PathNode node )
+	private List<PathNode> RevealPath ( PathNode node )
 	{
 		// The list to return the path in
 		List<PathNode> path = new List<PathNode>();

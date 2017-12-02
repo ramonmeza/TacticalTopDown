@@ -12,12 +12,14 @@ public class PathfinderTest : MonoBehaviour
 	public Pathfinder PathFinderComponent;
 
 	public PathNode startNode;
-	public PathNode targetNode;
+	private PathNode targetNode;
 
+	public GameObject target;
 	public List<PathNode> Path = new List<PathNode>();
 
 	void Update ()
 	{
+		targetNode = PathfinderHelper.FindClosestNode( target, PathFinderComponent );
 		Path = PathFinderComponent.FindBestPath( startNode, targetNode );
 	}
 

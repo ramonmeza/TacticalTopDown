@@ -3457,11 +3457,11 @@ Tilemap:
   - serializedVersion: 1
     m_DirtyIndex: 0
   - serializedVersion: 1
-    m_DirtyIndex: 1
+    m_DirtyIndex: 0
   - serializedVersion: 1
-    m_DirtyIndex: 1
+    m_DirtyIndex: 0
   - serializedVersion: 1
-    m_DirtyIndex: 1
+    m_DirtyIndex: 0
 --- !u!1001 &220868311
 Prefab:
   m_ObjectHideFlags: 0
@@ -3546,6 +3546,11 @@ Prefab:
       propertyPath: Grid.Array.data[4]
       value: 
       objectReference: {fileID: 957499747}
+    - target: {fileID: 114964481214441656, guid: 2496466b1424696478c9973cdc5830ef,
+        type: 2}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 692074971}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2496466b1424696478c9973cdc5830ef, type: 2}
   m_IsPrefabParent: 0
@@ -5215,19 +5220,19 @@ Tilemap:
   - serializedVersion: 1
     m_DirtyIndex: 0
   - serializedVersion: 1
-    m_DirtyIndex: 2
+    m_DirtyIndex: 0
   - serializedVersion: 1
-    m_DirtyIndex: 2
+    m_DirtyIndex: 0
   - serializedVersion: 1
-    m_DirtyIndex: 2
+    m_DirtyIndex: 0
   - serializedVersion: 1
-    m_DirtyIndex: 2
+    m_DirtyIndex: 0
   - serializedVersion: 1
-    m_DirtyIndex: 2
+    m_DirtyIndex: 0
   - serializedVersion: 1
-    m_DirtyIndex: 2
+    m_DirtyIndex: 0
   - serializedVersion: 1
-    m_DirtyIndex: 2
+    m_DirtyIndex: 0
 --- !u!19719996 &1490353617
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -9844,7 +9849,7 @@ Tilemap:
   - serializedVersion: 1
     m_DirtyIndex: 0
   - serializedVersion: 1
-    m_DirtyIndex: 1
+    m_DirtyIndex: 0
   - serializedVersion: 1
     m_DirtyIndex: 1
   - serializedVersion: 1
