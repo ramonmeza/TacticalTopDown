@@ -4018,7 +4018,7 @@ Transform:
   - {fileID: 102922470}
   - {fileID: 940004213}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &225606208 stripped
 Transform:
@@ -5148,7 +5148,7 @@ Transform:
   - {fileID: 1551888721}
   - {fileID: 1490353614}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1839735485 &719216005
 Tilemap:
@@ -5303,6 +5303,48 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1b4bfdb641cd2e54394d08fbd5d47581, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1001 &860510119
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4085688182524038, guid: 0c9b86e20b3d0bf49b6479b05fd4936a, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -4.909745
+      objectReference: {fileID: 0}
+    - target: {fileID: 4085688182524038, guid: 0c9b86e20b3d0bf49b6479b05fd4936a, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 8.682827
+      objectReference: {fileID: 0}
+    - target: {fileID: 4085688182524038, guid: 0c9b86e20b3d0bf49b6479b05fd4936a, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4085688182524038, guid: 0c9b86e20b3d0bf49b6479b05fd4936a, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4085688182524038, guid: 0c9b86e20b3d0bf49b6479b05fd4936a, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4085688182524038, guid: 0c9b86e20b3d0bf49b6479b05fd4936a, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4085688182524038, guid: 0c9b86e20b3d0bf49b6479b05fd4936a, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4085688182524038, guid: 0c9b86e20b3d0bf49b6479b05fd4936a, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 0c9b86e20b3d0bf49b6479b05fd4936a, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &861841515
 Prefab:
@@ -6172,6 +6214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsAutomatic: 0
   FireRate: 0.2
+  ReloadTime: 1
   Range: 10
   Damage: 10
   NumberOfMagazines: 4
@@ -6179,11 +6222,40 @@ MonoBehaviour:
   Magazines: []
   CurrentMagazine:
     AmmoLeft: 10
+--- !u!114 &1185783126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1185783118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 748ccee5b83aefa43b18a9399a122e98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHealth: 100
 --- !u!4 &1198393454 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4187057587529438, guid: 1b4bfdb641cd2e54394d08fbd5d47581,
     type: 2}
   m_PrefabInternal: {fileID: 1583324867}
+--- !u!1 &1228418902 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1869741272033188, guid: 0c9b86e20b3d0bf49b6479b05fd4936a,
+    type: 2}
+  m_PrefabInternal: {fileID: 860510119}
+--- !u!114 &1228418903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1228418902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 748ccee5b83aefa43b18a9399a122e98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHealth: 100
 --- !u!1001 &1230256696
 Prefab:
   m_ObjectHideFlags: 0
@@ -13264,7 +13336,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1782222569
 Prefab:
