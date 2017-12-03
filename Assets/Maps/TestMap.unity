@@ -6815,7 +6815,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Target: {fileID: 1185783118}
-  FollowLag: 0.05
+  FollowLag: 0.1
 --- !u!1001 &1343203065
 Prefab:
   m_ObjectHideFlags: 0
