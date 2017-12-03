@@ -19,8 +19,47 @@ public class Pathfinder : MonoBehaviour
 		// Get all nodes parented to this object for the grid
 		foreach( PathNode child in GetComponentsInChildren<PathNode>() )
 			m_Grid.Add( child );
+
+
+		// Trying to automate connection to neighbors
+		float MaxConnectionDistance = 10.0f;
+		foreach( PathNode node in m_Grid )
+		{
+			// Check each node for connections
+			foreach( PathNode neighbor in m_Grid )
+			{
+				// If the distance is within the max distance and
+				// the connection doesn't already exist
+				if( node != neighbor &&
+				    PathfinderHelper.StraightLineDistance( node, neighbor ) <
+				    MaxConnectionDistance &&
+				    !PathfinderHelper.ConnectionExists( node, neighbor ) )
+				{
+					// Get direction between the two nodes
+					Vector3 heading = ( neighbor.transform.position -
+					                  node.transform.position );
+					float distance = heading.magnitude;
+					Vector3 dir = heading / distance;
+
+					// Check if there is an obstacle between the two nodes
+					int layerMask = 1 << 8; // 8 is the layer mask for obstacles
+					RaycastHit2D hit = 
+						Physics2D.Raycast( node.transform.position,
+						                  dir, 
+						                  MaxConnectionDistance, 
+						                  layerMask );
+				
+					// If the raycast didn't hit an obstacle
+					if( hit.collider == null)
+						node.Neighbors.Add( neighbor );
+				}
+			}
+		}
 	}
 
+	/// <summary>
+	/// Gets the grid.
+	/// </summary>
 	public List<PathNode> GetGrid ()
 	{
 		return m_Grid;
@@ -63,7 +102,7 @@ public class Pathfinder : MonoBehaviour
 
 		while( currentNode != targetNode )
 		{
-			foreach( PathNode node in currentNode.Connections )
+			foreach( PathNode node in currentNode.Neighbors )
 			{
 				// If the connected node is the target node
 				if( node == targetNode )

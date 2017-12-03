@@ -25,6 +25,7 @@ public class PathfinderTest : MonoBehaviour
 			PathfinderHelper.FindClosestNode( target, PathFinderComponent );
 		if( targetNode != closestToTarget )
 		{
+			Debug.Log( "Pathfinding..." );
 			targetNode = closestToTarget;
 			Path = PathFinderComponent.FindBestPath( startNode, targetNode );
 		}

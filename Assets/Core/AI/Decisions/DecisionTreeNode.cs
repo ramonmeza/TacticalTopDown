@@ -11,19 +11,19 @@ abstract public class DecisionTreeNode : MonoBehaviour
 	/// <summary>
 	/// The left hand side leaf
 	/// </summary>
-	protected DecisionTreeNode LHS = null;
+	protected DecisionTreeNode m_LHS = null;
 
 	/// <summary>
 	/// The right hand side left
 	/// </summary>
-	protected DecisionTreeNode RHS = null;
+	protected DecisionTreeNode m_RHS = null;
 
 	/// <summary>
 	/// Gets the LHS leaf.
 	/// </summary>
 	public DecisionTreeNode GetLHS()
 	{
-		return LHS;
+		return m_LHS;
 	}
 
 	/// <summary>
@@ -31,6 +31,22 @@ abstract public class DecisionTreeNode : MonoBehaviour
 	/// </summary>
 	public DecisionTreeNode GetRHS()
 	{
-		return RHS;
+		return m_RHS;
+	}
+
+	/// <summary>
+	/// Adds a node to the LHS
+	/// </summary>
+	public void AddLHS( DecisionTreeNode node )
+	{
+		m_LHS = node;
+	}
+
+	/// <summary>
+	/// Adds a node to the RHS
+	/// </summary>
+	public void AddRHS( DecisionTreeNode node )
+	{
+		m_RHS = node;
 	}
 }

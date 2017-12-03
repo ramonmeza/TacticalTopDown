@@ -29,9 +29,9 @@ public class PathNode : MonoBehaviour
 	public PathNode Parent { get; set; }
 
 	/// <summary>
-	/// List of connections from this node to other nodes.
+	/// List of neighbors from this node to other nodes.
 	/// </summary>
-	public List<PathNode> Connections = new List<PathNode>();
+	public List<PathNode> Neighbors = new List<PathNode>();
 
 	void Start()
 	{
@@ -50,7 +50,7 @@ public class PathNode : MonoBehaviour
 
 		Gizmos.DrawSphere( transform.position, 0.5f );
 
-		foreach( PathNode node in Connections )
+		foreach( PathNode node in Neighbors )
 		{
 			if( node != null )
 				Gizmos.DrawLine( transform.position, node.transform.position );

@@ -77,4 +77,16 @@ public class PathfinderHelper : MonoBehaviour
 
 		return closestNode;
 	}
+
+	/// <summary>
+	/// Checks if a connection from PathNode a to PathNode b exist
+	/// </summary>
+	/// <returns><c>true</c>, if connection exists, <c>false</c> otherwise.</returns>
+	public static bool ConnectionExists ( PathNode a, PathNode b )
+	{
+		if( a.Neighbors.Contains( b ) )
+			return true;
+
+		return false;
+	}
 }
