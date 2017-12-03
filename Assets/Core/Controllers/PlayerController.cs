@@ -8,6 +8,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+	public Weapon CurrentWeapon;
+
 	private CharacterMovementComponent m_CharacterMovementComponent;
 
 	void Start()
@@ -32,6 +34,17 @@ public class PlayerController : MonoBehaviour
 
 		// Rotate to mouse
 		AimAt( Camera.main.ScreenToWorldPoint( Input.mousePosition ) );
+
+		if( CurrentWeapon != null )
+		{
+			// Shoot the weapon
+			if( Input.GetAxisRaw( "Shoot" ) != 0.0f )
+				CurrentWeapon.StartShooting();
+			else
+				CurrentWeapon.StopShooting();
+
+			// Reload the weapon
+		}
 	}
 
 	/// <summary>
