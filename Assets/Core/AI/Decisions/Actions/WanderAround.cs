@@ -5,6 +5,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class WanderAround : ActionNode
 {
@@ -24,9 +25,9 @@ public class WanderAround : ActionNode
 	private CharacterMovementComponent m_CharacterMovementComponent;
 
 	/// <summary>
-	/// A point to goto
+	/// A path to follow
 	/// </summary>
-	private PathNode m_PointToGoto = null;
+	private List<PathNode> m_CurrentPath = new List<PathNode>();
 
 	void Start ()
 	{
@@ -37,12 +38,38 @@ public class WanderAround : ActionNode
 
 	void Update ()
 	{
-		if( m_PointToGoto != null &&
-		    !IsAtPoint( m_PointToGoto ) )
+		// If the current path is empty
+		if( m_CurrentPath.Count == 0 )
 		{
+			// Get the start node
+			PathNode startNode = PathfinderHelper
+									.FindClosestNode( gameObject, 
+			                        				  m_PathfinderComponent );
+			
+			// Get the target node
+			PathNode targetNode = PathfinderHelper
+									.RandomNodeInGrid( m_PathfinderComponent
+				                  						.GetGrid() );
+
+			// Find the best path from start node to target node
+			m_CurrentPath = 
+				m_PathfinderComponent.FindBestPath( startNode, targetNode );
 		}
-		else if( m_PointToGoto == null || IsAtPoint( m_PointToGoto ) )
+
+		// If you are at the node along the path
+		if( IsAtPoint( m_CurrentPath.Last() ) )
 		{
+			// Remove the node from the path
+			m_CurrentPath.Remove( m_CurrentPath.Last() );
+		}
+		else
+		{
+			// Move to the node
+			transform.position = 
+				Vector3.MoveTowards(transform.position, 
+				                    m_CurrentPath.Last().transform.position, 
+				                    m_CharacterMovementComponent.Speed * 
+				                    	Time.deltaTime );
 		}
 	}
 
