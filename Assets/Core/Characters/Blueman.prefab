@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 50981557238561844}
   - component: {fileID: 70354973176386738}
   - component: {fileID: 114621707067145324}
+  - component: {fileID: 114898565961042562}
   m_Layer: 0
   m_Name: Blueman
   m_TagString: Untagged
@@ -90,6 +91,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 5
+--- !u!114 &114898565961042562
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1869741272033188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 748ccee5b83aefa43b18a9399a122e98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHealth: 100
 --- !u!212 &212300584864789190
 SpriteRenderer:
   m_ObjectHideFlags: 1

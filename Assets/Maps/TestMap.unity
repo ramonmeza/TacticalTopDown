@@ -5317,7 +5317,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4085688182524038, guid: 0c9b86e20b3d0bf49b6479b05fd4936a, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 8.682827
+      value: 12.48
       objectReference: {fileID: 0}
     - target: {fileID: 4085688182524038, guid: 0c9b86e20b3d0bf49b6479b05fd4936a, type: 2}
       propertyPath: m_LocalPosition.z
@@ -6256,6 +6256,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth: 100
+--- !u!114 &1228418909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1228418902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 524c85771f2d002469ce5fef34084b70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Range: 10
+  FieldOfView: 90
+  NumberOfRays: 10
+  Alert:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!1001 &1230256696
 Prefab:
   m_ObjectHideFlags: 0
