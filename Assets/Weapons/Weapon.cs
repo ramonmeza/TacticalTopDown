@@ -10,7 +10,7 @@ using System.Linq;
 public class Weapon : MonoBehaviour
 {
 	/// <summary>
-	/// Whether the weapon is automatic or not
+	/// Whether the weapon is automatic or not.
 	/// </summary>
 	public bool IsAutomatic = false;
 
@@ -25,9 +25,19 @@ public class Weapon : MonoBehaviour
 	public float FireRate = 0.2f;
 
 	/// <summary>
-	/// A timer to keep track of when to shoot
+	/// A timer to keep track of when to shoot.
 	/// </summary>
 	private float m_FireRateTimer = 0.0f;
+
+	/// <summary>
+	/// The reload time.
+	/// </summary>
+	public float ReloadTime = 1.0f;
+
+	/// <summary>
+	/// Whether or not the weapon is currently reloading.
+	/// </summary>
+	private bool m_IsReloading = false;
 
 	/// <summary>
 	/// The range of the weapon.
@@ -84,24 +94,29 @@ public class Weapon : MonoBehaviour
 	/// </summary>
 	public void StartShooting ()
 	{
-		if( m_ShootOnce )
+		// If the weapon is not reloading
+		if( !m_IsReloading )
 		{
-			// Switch off single fire mode
-			m_ShootOnce = false;
+			// If it is single shot
+			if( m_ShootOnce )
+			{
+				// Switch off single fire mode
+				m_ShootOnce = false;
 
-			// Reset fire rate timer
-			m_FireRateTimer = 0.0f;
+				// Reset fire rate timer
+				m_FireRateTimer = 0.0f;
 
-			// Shoot
-			Shoot();
-		}
-		else if( IsAutomatic && m_FireRateTimer >= FireRate )
-		{
-			// Reset fire rate timer
-			m_FireRateTimer = 0.0f;
+				// Shoot
+				Shoot();
+			}
+			else if( IsAutomatic && m_FireRateTimer >= FireRate )
+			{
+				// Reset fire rate timer
+				m_FireRateTimer = 0.0f;
 
-			// Shoot
-			Shoot();
+				// Shoot
+				Shoot();
+			}
 		}
 	}
 		
@@ -125,13 +140,9 @@ public class Weapon : MonoBehaviour
 			                                      Range,
 			                                      layerMask );
 
-
 			// If hit something
 			if( hit.collider != null )
 			{
-				Debug.DrawRay( transform.position, transform.right * Range, Color.green );
-				Debug.Log( "hit " + hit.collider.gameObject.name );
-				
 				// Get the hit object's damageable interface
 				IDamageable obj = hit.collider.GetComponent<IDamageable>();
 
@@ -140,10 +151,6 @@ public class Weapon : MonoBehaviour
 				{
 					obj.Damage( Damage );
 				}
-			}
-			else
-			{
-				Debug.DrawRay( transform.position, transform.right * Range, Color.yellow );
 			}
 		}
 		else
@@ -165,5 +172,35 @@ public class Weapon : MonoBehaviour
 
 		// Reset fire rate timer
 		m_FireRateTimer = 0.0f;
+	}
+
+	/// <summary>
+	/// Reloads the weapon.
+	/// </summary>
+	public void Reload()
+	{
+		// If not already reloading
+		if( !m_IsReloading )
+		{
+			// Set is reloading to true
+			m_IsReloading = true;
+
+			// Set current magazine to the next one in the list
+			CurrentMagazine = 
+				Magazines[ ( Magazines.IndexOf( CurrentMagazine ) + 1 ) % 
+				          		Magazines.Count ];
+
+			// Stop reloading after the reload time is completed
+			Invoke( "StopReloading", ReloadTime );
+		}
+	}
+
+	/// <summary>
+	/// Stops reloading.
+	/// </summary>
+	private void StopReloading()
+	{
+		// Set is reloading to false
+		m_IsReloading = false;
 	}
 }

@@ -44,6 +44,8 @@ public class PlayerController : MonoBehaviour
 				CurrentWeapon.StopShooting();
 
 			// Reload the weapon
+			if( Input.GetAxisRaw( "Reload" ) != 0.0f )
+				CurrentWeapon.Reload();
 		}
 	}
 
