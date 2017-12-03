@@ -1,12 +1,11 @@
 ﻿/// <summary>
-/// Chance node.
+/// An abstract base class for the chance nodes of a decision tree.
 /// </summary>
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChanceNode : DecisionTreeNode
+abstract public class ChanceNode : DecisionTreeNode
 {
-	
 }

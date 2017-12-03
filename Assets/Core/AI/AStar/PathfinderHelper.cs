@@ -33,6 +33,17 @@ public class PathfinderHelper : MonoBehaviour
 	}
 
 	/// <summary>
+	/// Gives a random node from the given grid.
+	/// </summary>
+	public static PathNode RandomNodeInGrid ( List<PathNode> grid )
+	{
+		if( grid.Count > 0 )
+			return grid[ Random.Range( 0, grid.Count - 1 ) ];
+		else
+			return null;
+	}
+
+	/// <summary>
 	/// Gives a random node from the given path.
 	/// </summary>
 	public static PathNode RandomNodeInPath ( Pathfinder path )

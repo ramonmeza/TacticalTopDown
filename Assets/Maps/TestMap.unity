@@ -206,7 +206,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4187057587529438, guid: 1b4bfdb641cd2e54394d08fbd5d47581, type: 2}
       propertyPath: m_RootOrder
-      value: 83
+      value: 81
       objectReference: {fileID: 0}
     - target: {fileID: 1417400913688288, guid: 1b4bfdb641cd2e54394d08fbd5d47581, type: 2}
       propertyPath: m_Name
@@ -5014,6 +5014,7 @@ GameObject:
   - component: {fileID: 692074973}
   - component: {fileID: 692074972}
   - component: {fileID: 692074976}
+  - component: {fileID: 692074979}
   m_Layer: 0
   m_Name: spr_Hitman_Standing
   m_TagString: Untagged
@@ -5150,6 +5151,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &692074979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 692074971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9c4ec547ff7d8241a023f87108461ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AcceptanceRadius: 0.5
+  m_PathfinderComponent: {fileID: 220868312}
 --- !u!4 &693625010 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4187057587529438, guid: 1b4bfdb641cd2e54394d08fbd5d47581,
@@ -6447,7 +6461,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4187057587529438, guid: 1b4bfdb641cd2e54394d08fbd5d47581, type: 2}
       propertyPath: m_RootOrder
-      value: 80
+      value: 79
       objectReference: {fileID: 0}
     - target: {fileID: 1417400913688288, guid: 1b4bfdb641cd2e54394d08fbd5d47581, type: 2}
       propertyPath: m_Name
@@ -6636,7 +6650,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4187057587529438, guid: 1b4bfdb641cd2e54394d08fbd5d47581, type: 2}
       propertyPath: m_RootOrder
-      value: 84
+      value: 82
       objectReference: {fileID: 0}
     - target: {fileID: 1417400913688288, guid: 1b4bfdb641cd2e54394d08fbd5d47581, type: 2}
       propertyPath: m_Name
@@ -8363,7 +8377,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4187057587529438, guid: 1b4bfdb641cd2e54394d08fbd5d47581, type: 2}
       propertyPath: m_RootOrder
-      value: 81
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 1417400913688288, guid: 1b4bfdb641cd2e54394d08fbd5d47581, type: 2}
       propertyPath: m_Name

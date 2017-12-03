@@ -9,17 +9,17 @@ using UnityEngine;
 abstract public class DecisionTreeNode : MonoBehaviour
 {
 	/// <summary>
-	/// The left hand side leaf
+	/// The left hand side child.
 	/// </summary>
 	protected DecisionTreeNode m_LHS = null;
 
 	/// <summary>
-	/// The right hand side left
+	/// The right hand side child.
 	/// </summary>
 	protected DecisionTreeNode m_RHS = null;
 
 	/// <summary>
-	/// Gets the LHS leaf.
+	/// Gets the LHS child.
 	/// </summary>
 	public DecisionTreeNode GetLHS()
 	{
@@ -27,7 +27,7 @@ abstract public class DecisionTreeNode : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Gets the RHS leaf.
+	/// Gets the RHS child.
 	/// </summary>
 	public DecisionTreeNode GetRHS()
 	{
@@ -35,7 +35,7 @@ abstract public class DecisionTreeNode : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Adds a node to the LHS
+	/// Adds a node to the LHS.
 	/// </summary>
 	public void AddLHS( DecisionTreeNode node )
 	{
@@ -43,7 +43,7 @@ abstract public class DecisionTreeNode : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Adds a node to the RHS
+	/// Adds a node to the RHS.
 	/// </summary>
 	public void AddRHS( DecisionTreeNode node )
 	{

@@ -13,5 +13,11 @@ public class DecisionTree : MonoBehaviour
 	/// </summary>
 	private DecisionTreeNode m_Root;
 
-
+	/// <summary>
+	/// Gets the root.
+	/// </summary>
+	public DecisionTreeNode GetRoot()
+	{
+		return m_Root;
+	}
 }
